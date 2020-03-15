@@ -17,25 +17,19 @@ public class TwitterAPI {
 		return twitter;
 	}
 
-	public List<String> searchtweets(String hashtag) throws TwitterException {
+	public List<String> searchTweets(String hashtag, int quantity) throws TwitterException {
 		// busca instancia do twitter
 		Twitter twitter = getTwitterinstance();
 		// cria qual valor a ser consultado
 		Query query = new Query(hashtag);
 		//seta numero de tweets para a busca
-		query.count(100);
+		query.count(quantity+1);
 		// realiza a busca dos tweets
 		QueryResult result = twitter.search(query);
 		// retorna resultados em uma lista do tipo status
 		List<Status> statuses = result.getTweets();
 		// retorna o metodo com a lista das mensagens dos tweets
 		return statuses.stream().map(item -> item.getText()).collect(Collectors.toList());
-	}
-
-	public static void main(String[] args) throws Exception {
-		TwitterAPI tu = new TwitterAPI();
-		List<String> tweets = tu.searchtweets("#coronavirusnobrasil");
-		System.out.println(tweets);
 	}
 
 }

@@ -6,9 +6,11 @@
 	<artifactId>telegram-chatbot</artifactId>
 	<version>0.0.1</version>
 	<name>telegram-chatbot</name>
+	<packaging>war</packaging>
 	<description>Chatbot para interação no Telegram</description>
 
 	<build>
+		<finalName>telegram-chatbot</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -23,29 +25,29 @@
 			</plugins>
 		</pluginManagement>
 		<plugins>
-		<plugin>
-		  <artifactId>maven-assembly-plugin</artifactId>
-		  <configuration>
-		  	<appendAssemblyId>false</appendAssemblyId>
-		    <archive>
-		      <manifest>
-		        <mainClass>br.com.chatbot.twitter.TwitterAPI</mainClass>
-		      </manifest>
-		    </archive>
-		    <descriptorRefs>
-		      <descriptorRef>jar-with-dependencies</descriptorRef>
-		    </descriptorRefs>
-		  </configuration>
-		  <executions>
-		    <execution>
-		      <id>make-assembly</id> <!-- this is used for inheritance merges -->
-		      <phase>package</phase> <!-- bind to the packaging phase -->
-		      <goals>
-		        <goal>single</goal>
-		      </goals>
-		    </execution>
-		  </executions>
-		</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<configuration>
+					<appendAssemblyId>false</appendAssemblyId>
+<!-- 					<archive> -->
+<!-- 						<manifest> -->
+<!-- 							<mainClass>null</mainClass> -->
+<!-- 						</manifest> -->
+<!-- 					</archive> -->
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>com.spotify</groupId>
 				<artifactId>dockerfile-maven-plugin</artifactId>
@@ -64,7 +66,7 @@
 					<repository>andegod/telegram_chatbot</repository>
 					<tag>${project.version}</tag>
 					<buildArgs>
-						<JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+						<JAR_FILE>${project.build.finalName}.war</JAR_FILE>
 					</buildArgs>
 				</configuration>
 			</plugin>
@@ -77,6 +79,11 @@
 			<groupId>org.twitter4j</groupId>
 			<artifactId>twitter4j-core</artifactId>
 			<version>4.0.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>1.8</version>
 		</dependency>
 	</dependencies>
 </project>
